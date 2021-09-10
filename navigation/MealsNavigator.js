@@ -1,7 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Platform } from "react-native";
-import { color } from "react-native-reanimated";
 import { createAppContainer } from "react-navigation";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import { createStackNavigator } from "react-navigation-stack";
@@ -11,6 +10,8 @@ import CategoriesScreen from "../screens/CategoriesScreen";
 import CategoryMealsScreen from "../screens/CategoryMealsScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
 import MealDetailScreen from "../screens/MealDetailScreen";
+import { createDrawerNavigator } from "react-navigation-drawer";
+import FiltersScreen from "../screens/FiltersScreen";
 
 const defaultStackNavOptions = {
   headerStyle: {
@@ -80,4 +81,36 @@ const MealsFavTabNavigator =
         },
       });
 
-export default createAppContainer(MealsFavTabNavigator);
+const FiltersNavigator = createStackNavigator(
+  {
+    Filter: FiltersScreen,
+  },
+  {
+    defaultNavigationOptions: defaultStackNavOptions,
+  }
+);
+
+const MainNavigator = createDrawerNavigator(
+  {
+    FavMeals: {
+      screen: MealsFavTabNavigator,
+      navigationOptions: {
+        drawerLabel: "Meals",
+      },
+    },
+    Filters: FiltersNavigator,
+  },
+  {
+    contentOptions: {
+      itemsContainerStyle: {
+        marginTop: 48,
+      },
+      activeTintColor: colors.secondary,
+      labelStyle: {
+        fontFamily: "open-sans-bold",
+      },
+    },
+  }
+);
+
+export default createAppContainer(MainNavigator);
