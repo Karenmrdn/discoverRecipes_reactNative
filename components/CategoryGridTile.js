@@ -32,16 +32,19 @@ const styles = StyleSheet.create({
     margin: 6,
     height: 80,
     borderRadius: 8,
-    overflow: "hidden",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
+    overflow:
+      Platform.OS === "android" && Platform.Version >= 21
+        ? "hidden"
+        : "visible",
     elevation: 6,
-  }, 
+  },
   textContainer: {
     flex: 1,
     borderRadius: 8,
     justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
   },
   categoryText: {
     fontFamily: "open-sans-bold",

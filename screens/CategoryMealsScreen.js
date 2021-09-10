@@ -1,27 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
-import MealItem from "../components/MealItem";
+import { StyleSheet, View } from "react-native";
 import { CATEGORIES, MEALS } from "../data/dummy-data";
+import MealList from "../components/MealList";
 
 const CategoryMealsScreen = (props) => {
-  const renderFilteredMeals = (itemData) => {
-    return (
-      <MealItem
-        title={itemData.item.title}
-        duration={itemData.item.duration}
-        complexity={itemData.item.complexity}
-        affordability={itemData.item.affordability}
-        imageUrl={itemData.item.imageUrl}
-        onPress={() =>
-          props.navigation.navigate("MealDetail", {
-            mealId: itemData.item.id,
-          })
-        }
-      />
-    );
-  };
-
   const categoryId = props.navigation.getParam("categoryId");
 
   const mealsToDisplay = MEALS.filter((meal) =>
@@ -29,11 +11,9 @@ const CategoryMealsScreen = (props) => {
   );
 
   return (
-    <FlatList
-      data={mealsToDisplay}
-      renderItem={renderFilteredMeals}
-      style={styles.list}
-    />
+    <View style={styles.screen}>
+      <MealList data={mealsToDisplay} navigation={props.navigation} />
+    </View>
   );
 };
 
@@ -50,8 +30,9 @@ CategoryMealsScreen.navigationOptions = (navigationData) => {
 };
 
 const styles = StyleSheet.create({
-  list: {
+  screen: {
     margin: 16,
+    marginBottom: 0,
   },
 });
 
