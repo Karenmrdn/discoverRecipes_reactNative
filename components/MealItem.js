@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
+import { colors } from "../constants/colors";
+import BodyText from "./BodyText";
 
 const MealItem = (props) => {
   return (
@@ -25,9 +27,13 @@ const MealItem = (props) => {
             </ImageBackground>
           </View>
           <View style={[styles.mealRow, styles.mealDetail]}>
-            <Text>{props.duration}m</Text>
-            <Text>{props.complexity.toUpperCase()}</Text>
-            <Text>{props.affordability.toUpperCase()}</Text>
+            <BodyText style={styles.detailText}>{props.duration}m</BodyText>
+            <BodyText style={styles.detailText}>
+              {props.complexity.toUpperCase()}
+            </BodyText>
+            <BodyText style={styles.detailText}>
+              {props.affordability.toUpperCase()}
+            </BodyText>
           </View>
         </View>
       </TouchableOpacity>
@@ -39,7 +45,8 @@ const styles = StyleSheet.create({
   mealItem: {
     height: 200,
     // width: "100%",
-    backgroundColor: "#cfcfcf",
+    borderWidth: 1,
+    borderColor: colors.primary,
     marginVertical: 4,
     borderRadius: 8,
     overflow: "hidden",
@@ -71,6 +78,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "white",
     textAlign: "center",
+  },
+  detailText: {
+    fontFamily: "open-sans-bold",
   },
 });
 
