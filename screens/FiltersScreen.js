@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, StyleSheet, Switch, Platform } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useDispatch } from "react-redux";
 import BodyText from "../components/BodyText";
 import CustomHeaderButton from "../components/HeaderButton";
 import { colors } from "../constants/colors";
+import { setFilters, SET_FILTERS } from "../store/actions/mealActions";
 
 const FilterSwitch = (props) => {
   return (
@@ -12,7 +14,10 @@ const FilterSwitch = (props) => {
       <Switch
         value={props.value}
         onValueChange={props.onValueChange}
-        trackColor={{ true: colors.secondary, false: "#a7a7a7" }}
+        trackColor={{
+          true: colors.secondary,
+          false: Platform.OS === "android" ? "#a7a7a7" : "",
+        }}
         thumbColor={Platform.OS === "android" ? colors.primary : ""}
       />
     </View>
@@ -24,6 +29,7 @@ const FiltersScreen = (props) => {
   const [isLactoseFree, setIsLactoseFree] = useState(false);
   const [isVegan, setIsVegan] = useState(false);
   const [isVegetarian, setIsVegetarian] = useState(false);
+  const dispatch = useDispatch();
 
   const { navigation } = props;
 
@@ -35,8 +41,9 @@ const FiltersScreen = (props) => {
       isVegetarian,
     };
 
-    console.log(appliedFilters);
-  }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian]);
+    // console.log(appliedFilters);
+    dispatch(setFilters(appliedFilters));
+  }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian, dispatch]);
 
   useEffect(() => {
     navigation.setParams({ save: saveFilters });

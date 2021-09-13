@@ -27,7 +27,7 @@ const MealItem = (props) => {
             </ImageBackground>
           </View>
           <View style={[styles.mealRow, styles.mealDetail]}>
-            <BodyText style={styles.detailText}>{props.duration}m</BodyText>
+            <BodyText style={styles.detailText}>{props.duration}min</BodyText>
             <BodyText style={styles.detailText}>
               {props.complexity.toUpperCase()}
             </BodyText>
@@ -44,7 +44,6 @@ const MealItem = (props) => {
 const styles = StyleSheet.create({
   mealItem: {
     height: 200,
-    // width: "100%",
     borderWidth: 1,
     borderColor: colors.primary,
     marginVertical: 4,
